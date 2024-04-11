@@ -8,6 +8,7 @@ April 11: Async streaming not yet supported by streamlit
     langchain
     langchain-openai
     langchain-anthropic
+    langchain-mistralai
     python-dotenv
 
 # Usage:

@@ -1,6 +1,8 @@
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from langchain_anthropic import ChatAnthropic
+from langchain_mistralai.chat_models import ChatMistralAI
+
 from langchain_core.output_parsers import StrOutputParser
 
 def get_response_openai(user_query, chat_history):
@@ -40,6 +42,9 @@ def stream_response(user_query, chat_history, model_name):
         llm = ChatOpenAI()
     elif model_name == 'claude-3-sonnet':
         llm = ChatAnthropic(model_name="claude-3-sonnet-20240229")
+    elif model_name == 'mistral-7b':
+        llm = ChatMistralAI(model_name="open-mistral-7b9")
+        
     chain = prompt | llm | StrOutputParser()
     
     # Stream response
