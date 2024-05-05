@@ -5,11 +5,13 @@ from langchain_mistralai.chat_models import ChatMistralAI
 from langchain_ibm import WatsonxLLM
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_groq import ChatGroq
+import streamlit as st
 
 
 from langchain_core.output_parsers import StrOutputParser
 
 import os
+import io
 
 # https://www.ibm.com/docs/en/watsonx/saas?topic=solutions-supported-foundation-models#third-party-provided
 
@@ -109,3 +111,17 @@ def get_watsonx_model(model_name):
     streaming=True,
     )
     return watsonx_llm
+
+
+@st.cache_data(max_entries=20, show_spinner=False)
+def download_history(history: list):
+    md_text = ""
+    for msg in history:
+        if msg['role'] == 'user':
+            md_text += f'## HumanMessage：\n{msg["content"]}\n'
+        elif msg['role'] == 'assistant':
+            md_text += f'## AIMessage：\n{msg["content"]}\n'
+    output = io.BytesIO()
+    output.write(md_text.encode('utf-8'))
+    output.seek(0)
+    return output

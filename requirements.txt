@@ -3,4 +3,8 @@ langchain
 langchain-openai
 langchain-anthropic
 langchain-mistralai
+langchain-ibm
+langchain-groq
+langchain-google-genai
+
 python-dotenv
