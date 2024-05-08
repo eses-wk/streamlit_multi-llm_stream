@@ -113,14 +113,17 @@ def get_watsonx_model(model_name):
     return watsonx_llm
 
 
-@st.cache_data(max_entries=20, show_spinner=False)
-def download_history(history: list):
+#@st.cache_data(max_entries=20, show_spinner=False)
+def download_history(history_dict: dict):
     md_text = ""
-    for msg in history:
-        if msg['role'] == 'user':
-            md_text += f'## HumanMessage：\n{msg["content"]}\n'
-        elif msg['role'] == 'assistant':
-            md_text += f'## AIMessage：\n{msg["content"]}\n'
+    for model_name, msg_list in history_dict.items():
+        md_text += f'# {model_name}\n'
+        for msg in msg_list:
+            if msg.type == 'human':
+                md_text += f'## HumanMessage：\n{msg.content}\n'
+            elif msg.type == 'ai':
+                md_text += f'## AIMessage：\n{msg.content}\n'
+        md_text += '\n'
     output = io.BytesIO()
     output.write(md_text.encode('utf-8'))
     output.seek(0)
