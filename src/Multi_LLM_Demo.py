@@ -6,7 +6,6 @@ from utils import stream_response
 
 load_dotenv()
 
-
 # Main page
 if "chat_history_openai" not in st.session_state:
     st.session_state.chat_history_openai = []

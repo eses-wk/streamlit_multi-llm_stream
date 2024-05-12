@@ -9,7 +9,6 @@ from utils import stream_response, download_history
 load_dotenv()
 
 
-
 st.set_page_config(page_title="Multi-LLM Demo - 2", page_icon="🌍")
 st.title("Multi-LLM Demo - Open Models")
 
